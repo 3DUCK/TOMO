@@ -8,7 +8,6 @@
 import WidgetKit
 import SwiftUI
 
-@main
 struct TOMOWidgetBundle: WidgetBundle {
     var body: some Widget {
         TOMOWidget()

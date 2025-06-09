@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct TOMOApp: App {
+    @StateObject var settings = UserSettings()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainTabView()
+                .environmentObject(settings)
         }
     }
+}
+
+#Preview {
+    MainTabView()
 }

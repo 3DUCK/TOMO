@@ -6,14 +6,65 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		046F51FE2DF72A1000AC661D /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046F51FD2DF72A0F00AC661D /* WidgetKit.framework */; };
+		046F52002DF72A1000AC661D /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046F51FF2DF72A1000AC661D /* SwiftUI.framework */; };
+		046F520F2DF72A1400AC661D /* TOMOWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 046F51FB2DF72A0F00AC661D /* TOMOWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		046F520D2DF72A1400AC661D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 046F51C92DF6BA2D00AC661D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 046F51FA2DF72A0F00AC661D;
+			remoteInfo = TOMOWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		046F52142DF72A1400AC661D /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				046F520F2DF72A1400AC661D /* TOMOWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		046F51D12DF6BA2D00AC661D /* TOMO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TOMO.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		046F51FB2DF72A0F00AC661D /* TOMOWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TOMOWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		046F51FD2DF72A0F00AC661D /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		046F51FF2DF72A1000AC661D /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		046F52102DF72A1400AC661D /* Exceptions for "TOMOWidget" folder in "TOMOWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 046F51FA2DF72A0F00AC661D /* TOMOWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		046F51D32DF6BA2D00AC661D /* TOMO */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = TOMO;
+			sourceTree = "<group>";
+		};
+		046F52012DF72A1000AC661D /* TOMOWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				046F52102DF72A1400AC661D /* Exceptions for "TOMOWidget" folder in "TOMOWidgetExtension" target */,
+			);
+			path = TOMOWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -26,6 +77,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		046F51F82DF72A0F00AC661D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				046F52002DF72A1000AC661D /* SwiftUI.framework in Frameworks */,
+				046F51FE2DF72A1000AC661D /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -33,6 +93,8 @@
 			isa = PBXGroup;
 			children = (
 				046F51D32DF6BA2D00AC661D /* TOMO */,
+				046F52012DF72A1000AC661D /* TOMOWidget */,
+				046F51FC2DF72A0F00AC661D /* Frameworks */,
 				046F51D22DF6BA2D00AC661D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,8 +103,18 @@
 			isa = PBXGroup;
 			children = (
 				046F51D12DF6BA2D00AC661D /* TOMO.app */,
+				046F51FB2DF72A0F00AC661D /* TOMOWidgetExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		046F51FC2DF72A0F00AC661D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				046F51FD2DF72A0F00AC661D /* WidgetKit.framework */,
+				046F51FF2DF72A1000AC661D /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -55,10 +127,12 @@
 				046F51CD2DF6BA2D00AC661D /* Sources */,
 				046F51CE2DF6BA2D00AC661D /* Frameworks */,
 				046F51CF2DF6BA2D00AC661D /* Resources */,
+				046F52142DF72A1400AC661D /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				046F520E2DF72A1400AC661D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				046F51D32DF6BA2D00AC661D /* TOMO */,
@@ -69,6 +143,28 @@
 			productName = TOMO;
 			productReference = 046F51D12DF6BA2D00AC661D /* TOMO.app */;
 			productType = "com.apple.product-type.application";
+		};
+		046F51FA2DF72A0F00AC661D /* TOMOWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 046F52112DF72A1400AC661D /* Build configuration list for PBXNativeTarget "TOMOWidgetExtension" */;
+			buildPhases = (
+				046F51F72DF72A0F00AC661D /* Sources */,
+				046F51F82DF72A0F00AC661D /* Frameworks */,
+				046F51F92DF72A0F00AC661D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				046F52012DF72A1000AC661D /* TOMOWidget */,
+			);
+			name = TOMOWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = TOMOWidgetExtension;
+			productReference = 046F51FB2DF72A0F00AC661D /* TOMOWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -81,6 +177,9 @@
 				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					046F51D02DF6BA2D00AC661D = {
+						CreatedOnToolsVersion = 16.3;
+					};
+					046F51FA2DF72A0F00AC661D = {
 						CreatedOnToolsVersion = 16.3;
 					};
 				};
@@ -100,12 +199,20 @@
 			projectRoot = "";
 			targets = (
 				046F51D02DF6BA2D00AC661D /* TOMO */,
+				046F51FA2DF72A0F00AC661D /* TOMOWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		046F51CF2DF6BA2D00AC661D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		046F51F92DF72A0F00AC661D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +229,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		046F51F72DF72A0F00AC661D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		046F520E2DF72A1400AC661D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 046F51FA2DF72A0F00AC661D /* TOMOWidgetExtension */;
+			targetProxy = 046F520D2DF72A1400AC661D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		046F51DA2DF6BA2F00AC661D /* Debug */ = {
@@ -302,6 +424,60 @@
 			};
 			name = Release;
 		};
+		046F52122DF72A1400AC661D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BYJ3PV93Y9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TOMOWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TOMOWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = geonu.hansung.ac.kr.TOMO.TOMOWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		046F52132DF72A1400AC661D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BYJ3PV93Y9;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TOMOWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TOMOWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = geonu.hansung.ac.kr.TOMO.TOMOWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -319,6 +495,15 @@
 			buildConfigurations = (
 				046F51DD2DF6BA2F00AC661D /* Debug */,
 				046F51DE2DF6BA2F00AC661D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		046F52112DF72A1400AC661D /* Build configuration list for PBXNativeTarget "TOMOWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				046F52122DF72A1400AC661D /* Debug */,
+				046F52132DF72A1400AC661D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

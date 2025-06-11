@@ -1,15 +1,24 @@
 // MARK: - ProfileSettingsView.swift
 import SwiftUI
+import UIKit // UIImage를 사용하기 위해 필요
 
 struct ProfileSettingsView: View {
     @EnvironmentObject var settings: UserSettings
-    @State private var backgroundImage: UIImage? = nil
+    // @State private var backgroundImage: UIImage? = nil // 이제 settings에서 관리
     @State private var showingImagePicker = false
 
     let goalOptions = ["취업", "다이어트", "자기계발", "학업"]
-    let fontOptions = ["산세리프", "세리프"]
+    let fontOptions = ["고양일산 L", "고양일산 R"] // 예시 폰트 옵션
     let soundOptions = ["기본", "차임벨", "알림음1"]
     let themeOptions = ["라이트", "다크"]
+
+    // UI에 표시될 이미지 (UserSettings의 Data를 UIImage로 변환)
+    var displayBackgroundImage: UIImage? {
+        if let data = settings.backgroundImageData {
+            return UIImage(data: data)
+        }
+        return nil
+    }
 
     var body: some View {
         NavigationView {
@@ -20,7 +29,7 @@ struct ProfileSettingsView: View {
                         Button(action: {
                             showingImagePicker = true
                         }) {
-                            if let image = backgroundImage {
+                            if let image = displayBackgroundImage { // displayBackgroundImage 사용
                                 Image(uiImage: image)
                                     .resizable()
                                     .scaledToFill()
@@ -74,10 +83,17 @@ struct ProfileSettingsView: View {
             .scrollContentBackground(.hidden)
             .navigationTitle("설정")
             .sheet(isPresented: $showingImagePicker) {
-                ImagePicker(image: $backgroundImage)
+                // ImagePicker에서 이미지를 선택하면 settings.backgroundImageData에 저장
+                ImagePicker(image: Binding(
+                    get: { self.displayBackgroundImage },
+                    set: { newImage in
+                        self.settings.backgroundImageData = newImage?.jpegData(compressionQuality: 0.8) // UIImage를 Data로 변환
+                    }
+                ))
             }
         }
         .preferredColorScheme(settings.preferredColorScheme)
         .toolbarColorScheme(settings.preferredColorScheme, for: .navigationBar)
+        // .onAppear, .onDisappear 등 필요한 라이프사이클 훅 추가
     }
 }

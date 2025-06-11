@@ -7,7 +7,7 @@ class QuoteService {
     func fetchTodayQuote(completion: @escaping (String) -> Void) {
         // 🚧 나중에 Firebase로 대체할 부분
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            let quote = "허세말고 무게, 감정말고 방향, 소리말고 결과"
+            let quote = "허세말고 무게, 감정말고  방향, 소리말고 결과"
             self.saveQuoteToAppGroup(quote)
             completion(quote)
         }

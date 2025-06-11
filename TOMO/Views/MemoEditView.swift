@@ -24,7 +24,7 @@ struct MemoEditView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading, spacing: 20) {
-                Text("문구: \(quote.text)")
+                Text(" \(quote.text)")
                     .font(settings.getCustomFont(size: 20))
                     .padding(.horizontal)
                 

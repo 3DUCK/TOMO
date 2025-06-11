@@ -70,6 +70,8 @@
 				"Resources/조선일보명조.ttf",
 				Services/QuoteService.swift,
 				ViewModels/QuoteViewModel.swift,
+				Views/HistoryCalendarView.swift,
+				Views/MemoEditView.swift,
 				Views/TodayQuoteView.swift,
 			);
 			target = 046F51FA2DF72A0F00AC661D /* TOMOWidgetExtension */;

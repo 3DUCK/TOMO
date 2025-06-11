@@ -113,15 +113,13 @@ struct HistoryCalendarView: View {
                 .scrollContentBackground(.hidden)
             }
             .navigationTitle("문구 히스토리")
-        }
-        .preferredColorScheme(settings.preferredColorScheme)
-        .toolbarColorScheme(settings.preferredColorScheme, for: .navigationBar)
-        .sheet(isPresented: $showingMemoSheet) {
-            if let quote = selectedQuoteForMemo {
+            .sheet(item: $selectedQuoteForMemo) { quote in
                 MemoEditView(quote: quote, viewModel: viewModel, isShowingSheet: $showingMemoSheet)
                     .environmentObject(settings)
             }
         }
+        .preferredColorScheme(settings.preferredColorScheme)
+        .toolbarColorScheme(settings.preferredColorScheme, for: .navigationBar)
         .onAppear {
             viewModel.loadAllQuotes()
             // 앱 로드 시 FSCalendar 초기 선택 설정 (선택 사항)

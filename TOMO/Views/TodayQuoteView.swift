@@ -17,11 +17,21 @@ struct TodayQuoteView: View {
     var body: some View {
         ZStack {
             // 배경 이미지가 있을 경우 표시
+            // backgroundType을 사용하지 않고 직접 backgroundImage 유무로 판단
             if let bgImage = backgroundImage {
                 Image(uiImage: bgImage)
                     .resizable()
                     .scaledToFill() // 화면을 꽉 채우도록
                     .edgesIgnoringSafeArea(.all) // 화면 전체를 덮도록
+                    // 테마에 따라 밝기 조절을 위한 오버레이 추가
+                    .overlay(
+                        Rectangle()
+                            .fill(settings.preferredColorScheme == .dark ?
+                                  Color.black.opacity(0.5) : // 다크 모드일 때 어둡게
+                                  Color.white.opacity(0.5)  // 라이트 모드일 때 밝게 (텍스트 잘 보이도록)
+                            )
+                            .edgesIgnoringSafeArea(.all)
+                    )
             } else {
                 // 배경 이미지가 없을 경우 기본 배경색 유지
                 Color(.systemBackground) // 혹은 원하는 다른 배경색

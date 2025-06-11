@@ -23,7 +23,8 @@ struct HistoryCalendarView: View {
                 HStack {
                     TextField("문구 또는 메모 검색", text: $searchText)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .font(settings.fontStyle)
+                    // TextField에도 원하는 폰트 크기를 적용할 수 있습니다.
+                    // .font(settings.fontName.isEmpty ? .body : Font.custom(settings.fontName, size: 16))
 
                     Menu {
                         Button("#성공") { selectedTag = "성공" }
@@ -38,11 +39,13 @@ struct HistoryCalendarView: View {
                 List(filteredQuotes()) { quote in
                     VStack(alignment: .leading, spacing: 4) {
                         Text(quote.text)
-                            .font(settings.fontStyle)
+                            // 여기에서 settings.fontName과 원하는 크기를 사용합니다.
+                            .font(settings.fontName.isEmpty ? .body : Font.custom(settings.fontName, size: 20)) // <-- 여기 수정!
                         Text(quote.date, style: .date)
                             .font(.caption)
                     }
                     .padding(8)
+                    
                 }
                 .scrollContentBackground(.hidden)
             }

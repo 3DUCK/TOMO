@@ -12,6 +12,9 @@ struct UserProfile: Codable {
 }
 
 class UserSettings: ObservableObject {
+    @AppStorage("font") var fontSetting: String = "고양일산 L"
+    @AppStorage("theme") var themeSetting: String = "라이트"
+
     private let defaults = UserDefaults(suiteName: AppConstants.appGroupID)!
 
     @Published var nickname: String {
@@ -52,6 +55,17 @@ class UserSettings: ObservableObject {
 
     var preferredColorScheme: ColorScheme {
         theme == "다크" ? .dark : .light
+    }
+    
+    // 폰트 이름만 반환하는 연산 프로퍼티 추가
+    var fontName: String {
+        if fontSetting == "고양일산 L" {
+            return "Goyangilsan L"
+        } else if fontSetting == "고양일산 R" {
+            return "Goyangilsan R"
+        } else {
+            return "" // 시스템 기본 폰트를 사용하게 하려면 빈 문자열 또는 특정 값 반환
+        }
     }
 
     var fontStyle: Font {

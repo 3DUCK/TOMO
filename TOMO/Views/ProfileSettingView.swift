@@ -46,7 +46,7 @@ struct ProfileSettingsView: View {
                     }
 
                     TextField("닉네임", text: $settings.nickname)
-                        .font(settings.fontStyle)
+//                        .font(settings.fontStyle)
 
                     Picker("목표 문구 주제", selection: $settings.goal) {
                         ForEach(goalOptions, id: \.self) { goal in
@@ -77,7 +77,7 @@ struct ProfileSettingsView: View {
                     Button("배경 이미지 선택") {
                         showingImagePicker = true
                     }
-                    .font(settings.fontStyle)
+//                    .font(settings.fontStyle)
                 }
             }
             .scrollContentBackground(.hidden)

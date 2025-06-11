@@ -56,9 +56,9 @@ class UserSettings: ObservableObject {
 
     var fontStyle: Font {
         if font == "고양일산 L" {
-            return Font.custom("Goyangilsan L", size: 20)
+            return Font.custom("Goyangilsan L", size: 30)
         } else if font == "고양일산 R" {
-            return Font.custom("Goyangilsan R", size: 20)
+            return Font.custom("Goyangilsan R", size: 30)
         } else {
             return .body
         }

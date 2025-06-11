@@ -12,6 +12,10 @@
 		046F520F2DF72A1400AC661D /* TOMOWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 046F51FB2DF72A0F00AC661D /* TOMOWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		046F52182DF84C9000AC661D /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F52172DF84C9000AC661D /* AppConstants.swift */; };
 		046F521F2DF84F0400AC661D /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F52172DF84C9000AC661D /* AppConstants.swift */; };
+		046F52332DF9D91300AC661D /* FSCalendarRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F52322DF9D91300AC661D /* FSCalendarRepresentable.swift */; };
+		046F52342DF9D91300AC661D /* FSCalendarRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F52322DF9D91300AC661D /* FSCalendarRepresentable.swift */; };
+		046F52362DF9D98D00AC661D /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 046F52352DF9D98D00AC661D /* FSCalendar */; };
+		046F52382DF9D99C00AC661D /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 046F52372DF9D99C00AC661D /* FSCalendar */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +49,7 @@
 		046F51FF2DF72A1000AC661D /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		046F52152DF7FCC400AC661D /* TOMOWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TOMOWidgetExtension.entitlements; sourceTree = "<group>"; };
 		046F52172DF84C9000AC661D /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		046F52322DF9D91300AC661D /* FSCalendarRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarRepresentable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -58,10 +63,14 @@
 		046F52212DF84FAA00AC661D /* Exceptions for "TOMO" folder in "TOMOWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Models/Quote.swift,
+				Models/User.swift,
 				"Resources/고양일산 L.TTF",
 				"Resources/고양일산 R.TTF",
 				"Resources/조선일보명조.ttf",
 				Services/QuoteService.swift,
+				ViewModels/QuoteViewModel.swift,
+				Views/TodayQuoteView.swift,
 			);
 			target = 046F51FA2DF72A0F00AC661D /* TOMOWidgetExtension */;
 		};
@@ -99,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046F52382DF9D99C00AC661D /* FSCalendar in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +117,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				046F52002DF72A1000AC661D /* SwiftUI.framework in Frameworks */,
+				046F52362DF9D98D00AC661D /* FSCalendar in Frameworks */,
 				046F51FE2DF72A1000AC661D /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,6 +128,7 @@
 		046F51C82DF6BA2D00AC661D = {
 			isa = PBXGroup;
 			children = (
+				046F52322DF9D91300AC661D /* FSCalendarRepresentable.swift */,
 				046F52172DF84C9000AC661D /* AppConstants.swift */,
 				046F52152DF7FCC400AC661D /* TOMOWidgetExtension.entitlements */,
 				046F51D32DF6BA2D00AC661D /* TOMO */,
@@ -166,6 +178,7 @@
 			);
 			name = TOMO;
 			packageProductDependencies = (
+				046F52372DF9D99C00AC661D /* FSCalendar */,
 			);
 			productName = TOMO;
 			productReference = 046F51D12DF6BA2D00AC661D /* TOMO.app */;
@@ -188,6 +201,7 @@
 			);
 			name = TOMOWidgetExtension;
 			packageProductDependencies = (
+				046F52352DF9D98D00AC661D /* FSCalendar */,
 			);
 			productName = TOMOWidgetExtension;
 			productReference = 046F51FB2DF72A0F00AC661D /* TOMOWidgetExtension.appex */;
@@ -220,6 +234,9 @@
 			);
 			mainGroup = 046F51C82DF6BA2D00AC661D;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				046F52312DF9D88300AC661D /* XCRemoteSwiftPackageReference "FSCalendar" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 046F51D22DF6BA2D00AC661D /* Products */;
 			projectDirPath = "";
@@ -253,6 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046F52342DF9D91300AC661D /* FSCalendarRepresentable.swift in Sources */,
 				046F52182DF84C9000AC661D /* AppConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046F52332DF9D91300AC661D /* FSCalendarRepresentable.swift in Sources */,
 				046F521F2DF84F0400AC661D /* AppConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -544,6 +563,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		046F52312DF9D88300AC661D /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		046F52352DF9D98D00AC661D /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 046F52312DF9D88300AC661D /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
+		046F52372DF9D99C00AC661D /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 046F52312DF9D88300AC661D /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 046F51C92DF6BA2D00AC661D /* Project object */;
 }

@@ -60,6 +60,7 @@
 			membershipExceptions = (
 				"Resources/고양일산 L.TTF",
 				"Resources/고양일산 R.TTF",
+				"Resources/조선일보명조.ttf",
 				Services/QuoteService.swift,
 			);
 			target = 046F51FA2DF72A0F00AC661D /* TOMOWidgetExtension */;

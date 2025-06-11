@@ -8,7 +8,7 @@ struct ProfileSettingsView: View {
     @State private var showingImagePicker = false
 
     let goalOptions = ["취업", "다이어트", "자기계발", "학업"]
-    let fontOptions = ["고양일산 L", "고양일산 R"] // 예시 폰트 옵션
+    let fontOptions = ["고양일산 L", "고양일산 R", "조선일보명조"] // 예시 폰트 옵션
     let soundOptions = ["기본", "차임벨", "알림음1"]
     let themeOptions = ["라이트", "다크"]
 

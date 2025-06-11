@@ -104,6 +104,8 @@ struct TOMOWidgetEntryView : View {
             return Font.custom("Goyangilsan L", size: baseSize) // PostScript 이름을 정확히 확인하여 사용
         } else if entry.fontSetting == "고양일산 R" {
             return Font.custom("Goyangilsan R", size: baseSize) // PostScript 이름을 정확히 확인하여 사용
+        } else if entry.fontSetting == "조선일보명조" {
+            return Font.custom("ChosunilboNM", size: baseSize)
         } else {
             return .body
         }

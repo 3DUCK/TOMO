@@ -73,6 +73,8 @@ class UserSettings: ObservableObject {
             return Font.custom("Goyangilsan L", size: 30)
         } else if font == "고양일산 R" {
             return Font.custom("Goyangilsan R", size: 30)
+        } else if font == "조선일보명조" {
+            return Font.custom("ChosunilboNM", size: 30)
         } else {
             return .body
         }

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		044A83622DFAD0B1004A0E71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0484B44E2DFABDA400B336D3 /* GoogleService-Info.plist */; };
+		044A83642DFAD272004A0E71 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 044A83632DFAD272004A0E71 /* FirebaseFunctions */; };
+		044A83662DFAD27A004A0E71 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 044A83652DFAD27A004A0E71 /* FirebaseFirestore */; };
+		044A83682DFAD28D004A0E71 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 044A83672DFAD28D004A0E71 /* FirebaseCore */; };
 		046F51FE2DF72A1000AC661D /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046F51FD2DF72A0F00AC661D /* WidgetKit.framework */; };
 		046F52002DF72A1000AC661D /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046F51FF2DF72A1000AC661D /* SwiftUI.framework */; };
 		046F520F2DF72A1400AC661D /* TOMOWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 046F51FB2DF72A0F00AC661D /* TOMOWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -129,6 +133,9 @@
 				046F52002DF72A1000AC661D /* SwiftUI.framework in Frameworks */,
 				046F52362DF9D98D00AC661D /* FSCalendar in Frameworks */,
 				046F51FE2DF72A1000AC661D /* WidgetKit.framework in Frameworks */,
+				044A83662DFAD27A004A0E71 /* FirebaseFirestore in Frameworks */,
+				044A83682DFAD28D004A0E71 /* FirebaseCore in Frameworks */,
+				044A83642DFAD272004A0E71 /* FirebaseFunctions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +223,9 @@
 			name = TOMOWidgetExtension;
 			packageProductDependencies = (
 				046F52352DF9D98D00AC661D /* FSCalendar */,
+				044A83632DFAD272004A0E71 /* FirebaseFunctions */,
+				044A83652DFAD27A004A0E71 /* FirebaseFirestore */,
+				044A83672DFAD28D004A0E71 /* FirebaseCore */,
 			);
 			productName = TOMOWidgetExtension;
 			productReference = 046F51FB2DF72A0F00AC661D /* TOMOWidgetExtension.appex */;
@@ -276,6 +286,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				044A83622DFAD0B1004A0E71 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,6 +611,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		044A83632DFAD272004A0E71 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0484B4512DFAC90400B336D3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
+		};
+		044A83652DFAD27A004A0E71 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0484B4512DFAC90400B336D3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		044A83672DFAD28D004A0E71 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0484B4512DFAC90400B336D3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
 		046F52352DF9D98D00AC661D /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 046F52312DF9D88300AC661D /* XCRemoteSwiftPackageReference "FSCalendar" */;

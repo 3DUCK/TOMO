@@ -148,11 +148,12 @@ struct TOMOWidgetEntryView : View {
             } // End of GeometryReader
             // GeometryReader의 콘텐츠가 ZStack의 배경이 되도록 합니다.
 
-            Text(entry.quote)
+            Text("\"" + entry.quote + "\"")
                 .multilineTextAlignment(.center)
                 .padding()
                 .font(widgetFontStyle) // 위젯 폰트 스타일 적용
                 // 위젯 텍스트 색상도 테마에 따라 조절
+                .lineSpacing(5)
                 .foregroundColor(widgetPreferredColorScheme == .dark ? .white : .black)
         }
         // 위젯은 .preferredColorScheme modifier를 직접 지원하지 않을 수 있으므로

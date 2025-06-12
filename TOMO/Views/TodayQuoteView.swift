@@ -45,7 +45,7 @@ struct TodayQuoteView: View {
                     .font(.headline)
                     .foregroundColor(settings.preferredColorScheme == .dark ? .white : .black)
 
-                Text(animatedQuote)
+                Text("\"" + animatedQuote + "\"")
                     .font(settings.fontStyle)
                     .multilineTextAlignment(.center)
                     .padding()
@@ -88,7 +88,7 @@ struct TodayQuoteView: View {
 
         quoteAnimationTask = Task {
             for (index, char) in fullQuote.enumerated() {
-                try? await Task.sleep(nanoseconds: 50_000_000)
+                try? await Task.sleep(nanoseconds: 100_000_000)
                 guard !Task.isCancelled else {
                     //print("TodayQuoteView 🚫 startTypingAnimation: Task cancelled mid-animation.")
                     return

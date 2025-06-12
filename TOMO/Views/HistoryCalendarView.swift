@@ -82,8 +82,9 @@ struct HistoryCalendarView: View {
                 List(filteredQuotes()) { quote in
                     VStack(alignment: .leading, spacing: 4) {
                         HStack {
-                            Text(quote.text)
+                            Text("\"" + quote.text + "\"")
                                 .font(settings.getCustomFont(size: 20))
+                                .lineSpacing(5)
                                 .foregroundColor(isDateInSelectedRange(quote.date) ? .primary : .primary) // Keep primary for text
                             Spacer()
                             if let emotion = quote.emotion, !emotion.isEmpty {

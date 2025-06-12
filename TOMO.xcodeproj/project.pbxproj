@@ -16,6 +16,10 @@
 		046F52342DF9D91300AC661D /* FSCalendarRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046F52322DF9D91300AC661D /* FSCalendarRepresentable.swift */; };
 		046F52362DF9D98D00AC661D /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 046F52352DF9D98D00AC661D /* FSCalendar */; };
 		046F52382DF9D99C00AC661D /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 046F52372DF9D99C00AC661D /* FSCalendar */; };
+		0484B44F2DFABDA400B336D3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0484B44E2DFABDA400B336D3 /* GoogleService-Info.plist */; };
+		0484B4532DFAC90400B336D3 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 0484B4522DFAC90400B336D3 /* FirebaseCore */; };
+		0484B4552DFAC90400B336D3 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 0484B4542DFAC90400B336D3 /* FirebaseFirestore */; };
+		0484B4572DFAC90400B336D3 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 0484B4562DFAC90400B336D3 /* FirebaseFunctions */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +54,7 @@
 		046F52152DF7FCC400AC661D /* TOMOWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TOMOWidgetExtension.entitlements; sourceTree = "<group>"; };
 		046F52172DF84C9000AC661D /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		046F52322DF9D91300AC661D /* FSCalendarRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSCalendarRepresentable.swift; sourceTree = "<group>"; };
+		0484B44E2DFABDA400B336D3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -110,7 +115,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0484B4532DFAC90400B336D3 /* FirebaseCore in Frameworks */,
 				046F52382DF9D99C00AC661D /* FSCalendar in Frameworks */,
+				0484B4552DFAC90400B336D3 /* FirebaseFirestore in Frameworks */,
+				0484B4572DFAC90400B336D3 /* FirebaseFunctions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +145,7 @@
 				046F52012DF72A1000AC661D /* TOMOWidget */,
 				046F51FC2DF72A0F00AC661D /* Frameworks */,
 				046F51D22DF6BA2D00AC661D /* Products */,
+				0484B44E2DFABDA400B336D3 /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -181,6 +190,9 @@
 			name = TOMO;
 			packageProductDependencies = (
 				046F52372DF9D99C00AC661D /* FSCalendar */,
+				0484B4522DFAC90400B336D3 /* FirebaseCore */,
+				0484B4542DFAC90400B336D3 /* FirebaseFirestore */,
+				0484B4562DFAC90400B336D3 /* FirebaseFunctions */,
 			);
 			productName = TOMO;
 			productReference = 046F51D12DF6BA2D00AC661D /* TOMO.app */;
@@ -238,6 +250,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				046F52312DF9D88300AC661D /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				0484B4512DFAC90400B336D3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 046F51D22DF6BA2D00AC661D /* Products */;
@@ -255,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0484B44F2DFABDA400B336D3 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,6 +589,14 @@
 				minimumVersion = 2.8.4;
 			};
 		};
+		0484B4512DFAC90400B336D3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.14.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -587,6 +609,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 046F52312DF9D88300AC661D /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
+		};
+		0484B4522DFAC90400B336D3 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0484B4512DFAC90400B336D3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		0484B4542DFAC90400B336D3 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0484B4512DFAC90400B336D3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		0484B4562DFAC90400B336D3 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0484B4512DFAC90400B336D3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -6,10 +6,17 @@
 //
 
 import SwiftUI
+import FirebaseCore
 
 @main
 struct TOMOApp: App {
     @StateObject var settings = UserSettings()
+    
+    // Firebase 초기화 코드 추가
+    init() {
+        FirebaseApp.configure() // <-- 여기에 Firebase 초기화 코드를 추가
+        print("FirebaseApp configured.") // 확인용 로그 (선택 사항)
+    }
     
     var body: some Scene {
         WindowGroup {

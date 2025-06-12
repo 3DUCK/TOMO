@@ -56,33 +56,33 @@ struct TodayQuoteView: View {
             }
         }
         .onAppear {
-            print("TodayQuoteView ➡️ onAppear: View appeared. Calling fetchAndSaveTodayQuote().")
+            //print("TodayQuoteView ➡️ onAppear: View appeared. Calling fetchAndSaveTodayQuote().")
             withAnimation(.easeIn(duration: 2.0)) {
                 backgroundImageOpacity = 1.0
             }
             viewModel.fetchAndSaveTodayQuote()
             // ✅ 추가: onAppear 시점에 현재 viewModel.todayQuote 값으로 애니메이션 시작
-            print("TodayQuoteView 🎬 onAppear: Starting animation with current viewModel.todayQuote: \"\(viewModel.todayQuote)\".")
+            //print("TodayQuoteView 🎬 onAppear: Starting animation with current viewModel.todayQuote: \"\(viewModel.todayQuote)\".")
             startTypingAnimation(for: viewModel.todayQuote)
         }
         .onChange(of: viewModel.todayQuote) { newQuote in
-            print("TodayQuoteView 🔄 onChange: viewModel.todayQuote changed to: \"\(newQuote)\".")
+            //print("TodayQuoteView 🔄 onChange: viewModel.todayQuote changed to: \"\(newQuote)\".")
             startTypingAnimation(for: newQuote)
         }
         .onDisappear {
-            print("TodayQuoteView ⬅️ onDisappear: View disappeared. Cancelling animation task.")
+            //print("TodayQuoteView ⬅️ onDisappear: View disappeared. Cancelling animation task.")
             quoteAnimationTask?.cancel()
         }
         .preferredColorScheme(settings.preferredColorScheme)
     }
 
     private func startTypingAnimation(for fullQuote: String) {
-        print("TodayQuoteView 🎬 startTypingAnimation: Attempting to animate quote: \"\(fullQuote)\".")
+        //print("TodayQuoteView 🎬 startTypingAnimation: Attempting to animate quote: \"\(fullQuote)\".")
         quoteAnimationTask?.cancel()
         animatedQuote = ""
 
         guard !fullQuote.isEmpty else {
-            print("TodayQuoteView ⚠️ startTypingAnimation: fullQuote is empty. Animation skipped.")
+            //print("TodayQuoteView ⚠️ startTypingAnimation: fullQuote is empty. Animation skipped.")
             return
         }
 
@@ -90,12 +90,12 @@ struct TodayQuoteView: View {
             for (index, char) in fullQuote.enumerated() {
                 try? await Task.sleep(nanoseconds: 50_000_000)
                 guard !Task.isCancelled else {
-                    print("TodayQuoteView 🚫 startTypingAnimation: Task cancelled mid-animation.")
+                    //print("TodayQuoteView 🚫 startTypingAnimation: Task cancelled mid-animation.")
                     return
                 }
                 animatedQuote += String(char)
             }
-            print("TodayQuoteView ✅ startTypingAnimation: Animation complete. Final animatedQuote: \"\(animatedQuote)\".")
+            //print("TodayQuoteView ✅ startTypingAnimation: Animation complete. Final animatedQuote: \"\(animatedQuote)\".")
         }
     }
 }

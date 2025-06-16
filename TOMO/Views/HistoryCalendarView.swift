@@ -97,9 +97,30 @@ struct HistoryCalendarView: View {
                     }
 
                     HStack {
-                        TextField("문구 또는 메모 검색", text: $searchText)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .font(settings.getCustomFont(size: 16))
+                        // MARK: - TextField 배경 투명, 하단 보더 및 플레이스홀더 색상 변경
+                        ZStack(alignment: .leading) { // Placeholder 위치를 위해 ZStack 사용
+                            if searchText.isEmpty {
+                                Text("문구 또는 메모 검색")
+                                    .foregroundColor(currentColorScheme == .dark ? .white.opacity(0.7) : .black.opacity(0.7)) // 플레이스홀더 색상
+                                    .font(settings.getCustomFont(size: 16))
+                                    .padding(.horizontal, 5) // TextField의 기본 패딩과 유사하게 조정
+                            }
+                            TextField("", text: $searchText) // Placeholder는 별도의 Text 뷰로 처리
+                                .textFieldStyle(PlainTextFieldStyle()) // 기본 스타일 제거
+                                .font(settings.getCustomFont(size: 16))
+                                .foregroundColor(currentColorScheme == .dark ? .white : .black) // 입력 텍스트 색상
+                                .padding(.horizontal, 5)
+                                .padding(.vertical, 8)
+                                .background(
+                                    // 하단 보더 라인
+                                    Rectangle()
+                                        .frame(height: 1)
+                                        .foregroundColor(currentColorScheme == .dark ? .white : .black)
+                                        .padding(.horizontal, 0)
+                                        .offset(y: 20) // TextField 아래로 이동 (높이 + 여백 고려)
+                                )
+                        }
+                        .padding(.bottom, 8) // TextField와 하단 보더 전체의 여백
 
                         Menu {
                             ForEach(availableTags, id: \.self) { tag in
@@ -152,6 +173,7 @@ struct HistoryCalendarView: View {
                     .scrollContentBackground(.hidden) // List의 배경을 투명하게 만듦
                 }
             }
+            .navigationBarHidden(true) // Navigation Bar를 숨깁니다.
             .sheet(item: $selectedQuoteForMemo) { quote in
                 MemoEditView(quote: quote, viewModel: viewModel, isShowingSheet: $showingMemoSheet)
                     .environmentObject(settings)

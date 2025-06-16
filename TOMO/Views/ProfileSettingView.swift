@@ -4,7 +4,7 @@ import UIKit // UIImage를 사용하기 위해 필요
 
 struct ProfileSettingsView: View {
     @EnvironmentObject var settings: UserSettings
-    // @State private var backgroundImage: UIImage? = nil // 이제 settings에서 관리
+    @State private var backgroundImage: UIImage? = nil // 이제 settings에서 관리
     @State private var showingImagePicker = false
 
     let goalOptions = ["취업", "다이어트", "자기계발", "학업"]

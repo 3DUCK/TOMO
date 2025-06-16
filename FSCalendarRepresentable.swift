@@ -131,8 +131,9 @@ struct FSCalendarRepresentable: UIViewRepresentable {
                     // 시작일과 종료일은 악센트 색상 (진하게)
                     return UIColor(resolvedAccentColor.opacity(0.8))
                 } else if targetDay >= startOfRange && targetDay <= endOfRange {
+                    return UIColor(resolvedAccentColor.opacity(0.4))
                     // 범위 내 날짜는 회색 (다크 모드 고려)
-                    return isDarkMode ? UIColor.systemGray4.withAlphaComponent(0.6) : UIColor.lightGray.withAlphaComponent(0.6)
+                    // return isDarkMode ? UIColor.systemGray4.withAlphaComponent(0.6) : UIColor.lightGray.withAlphaComponent(0.6)
                 }
             } else if let start = parent.selectedStartDate {
                 let startOfRange = currentCalendar.startOfDay(for: start)
@@ -207,7 +208,9 @@ struct FSCalendarRepresentable: UIViewRepresentable {
         calendar.appearance.titleFont = .systemFont(ofSize: 17)
         calendar.appearance.eventDefaultColor = UIColor.systemGreen
         
-        calendar.backgroundColor = isDarkMode ? .black : .white
+        // MARK: 배경색을 투명으로 설정
+        calendar.backgroundColor = .clear
+        
         calendar.appearance.titleDefaultColor = isDarkMode ? .white : .black
         calendar.appearance.weekdayTextColor = isDarkMode ? .lightGray : .darkGray
         calendar.appearance.headerTitleColor = isDarkMode ? .white : .black
@@ -223,7 +226,9 @@ struct FSCalendarRepresentable: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: FSCalendar, context: Context) {
-        uiView.backgroundColor = isDarkMode ? .black : .white
+        // MARK: 배경색을 투명으로 설정
+        uiView.backgroundColor = .clear
+        
         uiView.appearance.titleDefaultColor = isDarkMode ? .white : .black
         uiView.appearance.weekdayTextColor = isDarkMode ? .lightGray : .darkGray
         uiView.appearance.headerTitleColor = isDarkMode ? .white : .black

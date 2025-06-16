@@ -132,8 +132,10 @@ struct HistoryCalendarView: View {
                             }
                             Button("모두 보기") { selectedTag = nil }
                         } label: {
+                            // MARK: - 감정 버튼 텍스트 및 아이콘 색상 변경
                             Label("감정", systemImage: "face.smiling")
                                 .font(.body)
+                                .foregroundColor(currentColorScheme == .dark ? .white : .black) // 이 부분을 추가
                         }
                     }
                     .padding(.horizontal)

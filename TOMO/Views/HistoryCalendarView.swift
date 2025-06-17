@@ -46,9 +46,9 @@ struct HistoryCalendarView: View {
                             .overlay(
                                 Rectangle()
                                     .fill(settings.preferredColorScheme == .dark ?
-                                          Color.black.opacity(0.5) :
-                                          Color.white.opacity(0.5)
-                                         )
+                                              Color.black.opacity(0.5) :
+                                              Color.white.opacity(0.5)
+                                          )
                                     .frame(width: geometry.size.width, height: geometry.size.height) // 오버레이도 정확한 크기
                             )
                     } else {
@@ -73,6 +73,9 @@ struct HistoryCalendarView: View {
                             selectedEndDate: $selectedEndDate,
                             onDatesSelected: { newStart, newEnd in
                                 print("FSCalendar: Dates selected: \(newStart?.formatted() ?? "nil") ~ \(newEnd?.formatted() ?? "nil")")
+                                // FSCalendar에서 날짜가 선택될 때마다 필터링을 다시 수행
+                                self.selectedStartDate = newStart
+                                self.selectedEndDate = newEnd
                             },
                             calendarAccentColor: resolvedAppAccentColor, // 이제 확실한 Color 타입 전달
                             isDarkMode: currentColorScheme == .dark // 현재 다크모드 여부 전달
@@ -148,11 +151,7 @@ struct HistoryCalendarView: View {
                                     Text("\"" + quote.text + "\"")
                                         .font(settings.getCustomFont(size: 20))
                                         .lineSpacing(5)
-                                        .foregroundColor(isDateInSelectedRange(quote.date) ? .primary : .primary) // Keep primary for text
-//                                        .fill(settings.preferredColorScheme == .dark ?
-//                                              Color.black.opacity(0.5) :
-//                                              Color.white.opacity(0.5)
-//                                             )
+                                        .foregroundColor(.primary) // Keep primary for text
                                     Spacer()
                                     if let emotion = quote.emotion, !emotion.isEmpty {
                                         Text(emotion)
@@ -174,15 +173,7 @@ struct HistoryCalendarView: View {
                             .padding(8)
                             .cornerRadius(8) // Optional: Add corner radius for better visual
                             .background(
-                                // 조건에 따라 다른 색상을 줄 수도 있고, 고정된 색상을 줄 수도 있습니다.
-                                // 예를 들어:
-                                // Color.white.opacity(0.8) // 불투명한 흰색
-                               Color.clear // 완전히 투명하게 (원래 상태와 같음)
-                             //    currentColorScheme == .dark ? Color.black.opacity(0.7) : Color.white.opacity(0.7)
-                                // 또는 특정 조건에 따라 색상 변경 (예: 선택된 날짜 범위 내 아이템만 색상 변경)
-//                                isDateInSelectedRange(quote.date) ?
-//                                    resolvedAppAccentColor.opacity(0.2) : // 선택된 날짜 범위 내일 경우 액센트 색상으로
-//                                    (currentColorScheme == .dark ? Color.black.opacity(0.7) : Color.white.opacity(0.7)) // 기본 배경색
+                                Color.clear // 완전히 투명하게 (원래 상태와 같음)
                             )
                             .onTapGesture {
                                 selectedQuoteForMemo = quote
@@ -206,9 +197,16 @@ struct HistoryCalendarView: View {
 
         .onAppear {
             viewModel.loadAllQuotes()
-            // 앱 로드 시 FSCalendar 초기 선택 설정 (선택 사항)
-            // 예를 들어, 오늘 날짜를 시작일로 자동 선택하려면:
-            // selectedStartDate = Calendar.current.startOfDay(for: Date())
+            // MARK: - 화면 로드 시 오늘 날짜로 선택 범위 초기화
+            let today = Calendar.current.startOfDay(for: Date())
+            selectedStartDate = today
+            selectedEndDate = today
+            
+            // FSCalendar의 초기 선택을 반영하기 위해 reloadData 호출 (선택 사항이지만 안전함)
+            // FSCalendarRepresentable 내부에서 reloadData()를 didSelect/didDeselect 시 호출하므로
+            // 여기서는 굳이 필요 없을 수도 있습니다. 하지만 명시적으로 초기화를 위해 필요하다면 추가할 수 있습니다.
+            // 직접 FSCalendar 인스턴스에 접근해야 하므로, Representable의 makeUIView/updateUIView 로직을 수정해야 합니다.
+            // 일단은 State 변수만 업데이트해도 filteredQuotes()가 잘 작동하도록 되어 있습니다.
         }
     }
 
@@ -237,10 +235,11 @@ struct HistoryCalendarView: View {
 
             if let start = selectedStartDate, let end = selectedEndDate {
                 return quoteDay >= calendar.startOfDay(for: start) &&
-                       quoteDay <= calendar.startOfDay(for: end)
+                            quoteDay <= calendar.startOfDay(for: end)
             } else if let start = selectedStartDate {
                 return quoteDay == calendar.startOfDay(for: start)
             } else {
+                // 날짜가 선택되지 않은 경우 모든 항목을 반환
                 return true
             }
         }
@@ -248,8 +247,8 @@ struct HistoryCalendarView: View {
         // 2. 검색어와 태그로 추가 필터링
         rangedQuotes = rangedQuotes.filter { quote in
             let textMatches = searchText.isEmpty ||
-                              quote.text.localizedCaseInsensitiveContains(searchText) ||
-                              (quote.memo?.localizedCaseInsensitiveContains(searchText) ?? false)
+                                  quote.text.localizedCaseInsensitiveContains(searchText) ||
+                                  (quote.memo?.localizedCaseInsensitiveContains(searchText) ?? false)
 
             let tagMatches = selectedTag == nil || (quote.emotion == selectedTag)
 

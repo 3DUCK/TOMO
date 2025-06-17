@@ -105,7 +105,8 @@ struct ProfileSettingsView: View {
                             Button("배경 이미지 선택") {
                                 showingImagePicker = true
                             }
-                            // .font(settings.fontStyle) // 주석 해제하여 폰트 적용 가능
+                            .foregroundColor(currentColorScheme == .dark ? .white : .black)
+                            .font(.system(size: 17))
                         }
                     }
                     .offset(y: 100)

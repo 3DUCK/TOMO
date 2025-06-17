@@ -44,7 +44,7 @@ class UserSettings: ObservableObject {
     }
 
     init() {
-        self.nickname = defaults.string(forKey: "nickname") ?? "Guest"
+        self.nickname = defaults.string(forKey: "nickname") ?? "김건우"
         self.goal = defaults.string(forKey: "goal") ?? "취업"
         self.font = defaults.string(forKey: "font") ?? "고양일산 L" // "font" 키로 UserDefaults에서 로드
         self.sound = defaults.string(forKey: "sound") ?? "기본"

@@ -7,7 +7,7 @@ struct ProfileSettingsView: View {
     @State private var showingImagePicker = false
 
     let goalOptions = ["취업", "다이어트", "자기계발", "학업"]
-    let fontOptions = ["고양일산 L", "고양일산 R", "조선일보명조"] // 예시 폰트 옵션
+    let fontOptions = ["고양일산 L", "고양일산 R", "조선일보명조"]
     let soundOptions = ["기본", "차임벨", "알림음1"]
     let themeOptions = ["라이트", "다크"]
 
@@ -23,36 +23,36 @@ struct ProfileSettingsView: View {
     @Environment(\.colorScheme) var currentColorScheme: ColorScheme
 
     var body: some View {
-        // MARK: - GeometryReader를 최상단에 배치하고 ignoresSafeArea() 적용 (HistoryCalendarView와 동일)
         GeometryReader { geometry in
+            // MARK: - 전체 화면 크기 계산
+            let totalWidth = geometry.size.width + geometry.safeAreaInsets.leading + geometry.safeAreaInsets.trailing
+            let totalHeight = geometry.size.height + geometry.safeAreaInsets.top + geometry.safeAreaInsets.bottom
+
             ZStack {
-                // MARK: - 배경 이미지 레이어: geometry.size를 사용하여 정확한 화면 크기 적용 (HistoryCalendarView와 동일)
-                if let bgImage = displayBackgroundImage { // settings.backgroundImageData에서 오는 이미지 사용
+                // MARK: - 배경 이미지 레이어
+                if let bgImage = displayBackgroundImage {
                     Image(uiImage: bgImage)
                         .resizable()
                         .scaledToFill()
-                        .frame(width: geometry.size.width, height: geometry.size.height) // GeometryReader가 측정한 정확한 크기
-//                        .clipped() // 프레임을 벗어나는 부분은 잘라냅니다.
-                        .blur(radius: 5) // 원하는 블러 강도 값으로 조절하세요 (예: 5, 10, 20 등)
+                        .frame(width: totalWidth, height: totalHeight)
+                        .blur(radius: 5)
                         .overlay(
                             Rectangle()
                                 .fill(settings.preferredColorScheme == .dark ?
                                           Color.black.opacity(0.5) :
-                                          Color.white.opacity(0.5)
-                                      )
-                                .frame(width: geometry.size.width, height: geometry.size.height + 300) // 오버레이도 정확한 크기
+                                          Color.white.opacity(0.5))
+                                .frame(width: totalWidth, height: totalHeight)
                         )
                 } else {
-                    // 배경 이미지가 없을 경우, 시스템 배경색 적용
                     Color(.systemBackground)
-                        .frame(width: geometry.size.width, height: geometry.size.height) // 배경색도 정확한 크기
+                        .frame(width: totalWidth, height: totalHeight)
                 }
-                
-                // MARK: - 프로필 사진과 Form을 담는 VStack 추가
+
+                // MARK: - 프로필 사진과 Form을 담는 VStack
                 VStack {
                     Spacer() // 상단에 공간을 주어 프로필 사진 위치 조정
 
-                    // MARK: - 프로필 사진 버튼 (Form 바깥으로 이동 및 사각형으로 변경)
+                    // MARK: - 프로필 사진 버튼
                     Button(action: {
                         showingImagePicker = true
                     }) {
@@ -68,9 +68,9 @@ struct ProfileSettingsView: View {
                                 )
                                 .shadow(radius: 10)
                         } else {
-                            Image(systemName: "person.crop.rectangle.fill")
+                            Image(systemName: "photo.artframe")
                                 .resizable()
-                                .frame(width: 150, height: 150)
+                                .frame(width: 250, height: 250)
                                 .foregroundColor(.gray)
                                 .background(Color.white.opacity(0.8))
                                 .cornerRadius(20)
@@ -84,36 +84,32 @@ struct ProfileSettingsView: View {
                     .padding(.top, 50)
                     .offset(y: 20)
 
-                    // MARK: - ScrollView + VStack으로 변경
+                    // MARK: - ScrollView + VStack
                     ScrollView {
                         VStack(spacing: 12) {
                             // 프로필 Section
                             VStack(alignment: .leading, spacing: 12) {
-                                Text("프로필")
-                                    .font(.headline)
-                                    .padding(.bottom, 4)
+                                Text("목표 문구 주제")
+                                    .padding(.bottom, 1)
                                     .foregroundColor(currentColorScheme == .dark ? .white : .black)
-                                TextField("닉네임", text: $settings.nickname)
                                 CustomPicker(title: "목표 문구 주제", options: goalOptions, selection: $settings.goal,
                                              font: settings.getCustomFont(size: 18),
                                              textColor: currentColorScheme == .dark ? .white : .black)
-                            }
-                            .padding()
-                            .background(Color.clear) // 투명 배경
-                            .cornerRadius(12)
-
-                            // 개인화 설정 Section
-                            VStack(alignment: .leading, spacing: 12) {
-                                Text("개인화 설정")
-                                    .font(.headline)
-                                    .padding(.bottom, 4)
+                                Text("글꼴")
+                                    .padding(.bottom, 1)
                                     .foregroundColor(currentColorScheme == .dark ? .white : .black)
                                 CustomPicker(title: "글꼴", options: fontOptions, selection: $settings.font,
                                              font: settings.getCustomFont(size: 18),
                                              textColor: currentColorScheme == .dark ? .white : .black)
+                                Text("테마")
+                                    .padding(.bottom, 3)
+                                    .foregroundColor(currentColorScheme == .dark ? .white : .black)
                                 CustomPicker(title: "테마", options: themeOptions, selection: $settings.theme,
                                              font: settings.getCustomFont(size: 18),
                                              textColor: currentColorScheme == .dark ? .white : .black)
+                                Text("배경 이미지")
+                                    .padding(.bottom, 1)
+                                    .foregroundColor(currentColorScheme == .dark ? .white : .black)
                                 Button(action: {
                                     showingImagePicker = true
                                 }) {
@@ -125,39 +121,48 @@ struct ProfileSettingsView: View {
                                         Spacer()
                                     }
                                     .padding(10)
-                                    .background(.ultraThinMaterial) // ⭐️ 수정된 부분: Color.ultraThinMaterial -> .ultraThinMaterial
+                                    .background(.ultraThinMaterial)
+                                    .cornerRadius(12)
+                                }
+                                // MARK: - 배경 이미지 제거 버튼
+                                Button(action: {
+                                    settings.backgroundImageData = nil
+                                }) {
+                                    HStack {
+                                        Spacer()
+                                        Text("배경 이미지 제거")
+                                            .font(settings.getCustomFont(size: 18))
+                                            .foregroundColor(.gray)
+                                        Spacer()
+                                    }
+                                    .padding(20)
+                                    .background(Color.clear)
                                     .cornerRadius(12)
                                 }
                             }
                             .padding()
-                            .background(Color.clear) // 투명 배경
+                            .background(Color.clear)
                             .cornerRadius(12)
                         }
                         .padding(.horizontal, 24)
                         .padding(.bottom, 40)
-                        .offset(y: 50)
+                        .offset(y: 20)
                     }
                 }
-                // ...existing code...
-            } // End of ZStack
-            // MARK: - GeometryReader 자체가 안전 영역을 무시하도록 설정 (HistoryCalendarView와 동일)
+            }
             .ignoresSafeArea(.all)
             .preferredColorScheme(settings.preferredColorScheme)
-            // toolbarColorScheme은 SwiftUI 4.0 이상에서만 적용 가능하며,
-            // 배경 이미지와 ZStack으로 전체를 덮었기 때문에 NavigationBar의 배경은 이미 투명해졌을 수 있습니다.
-            // .toolbarColorScheme(settings.preferredColorScheme, for: .navigationBar)
-
-        } // End of GeometryReader
+        }
         .sheet(isPresented: $showingImagePicker) {
             ImagePicker(image: Binding(
                 get: { self.displayBackgroundImage },
                 set: { newImage in
-                    self.settings.backgroundImageData = newImage?.jpegData(compressionQuality: 0.8) // UIImage를 Data로 변환
+                    self.settings.backgroundImageData = newImage?.jpegData(compressionQuality: 0.8)
                 }
             ))
         }
         .onAppear {
-            // 필요에 따라 초기 설정이나 데이터 로드 로직 추가
+            // 초기 설정 로직
         }
     }
 }
@@ -169,7 +174,7 @@ struct CustomPicker<T: Hashable & CustomStringConvertible>: View {
     @Binding var selection: T
     var font: Font = .body
     var textColor: Color = .primary
-    var buttonBackgroundMaterial: Material = .ultraThinMaterial // ⭐️ 수정된 부분: buttonColor -> buttonBackgroundMaterial 타입 변경
+    var buttonBackgroundMaterial: Material = .ultraThinMaterial
     var cornerRadius: CGFloat = 12
     @Environment(\.colorScheme) var colorScheme
     @State private var showSheet = false
@@ -184,7 +189,7 @@ struct CustomPicker<T: Hashable & CustomStringConvertible>: View {
                 Spacer()
             }
             .padding(10)
-            .background(buttonBackgroundMaterial) // ⭐️ 수정된 부분: buttonColor -> buttonBackgroundMaterial 사용
+            .background(buttonBackgroundMaterial)
             .cornerRadius(cornerRadius)
         }
         .sheet(isPresented: $showSheet) {

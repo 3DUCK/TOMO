@@ -15,7 +15,7 @@ struct TOMOApp: App {
     // Firebase 초기화 코드 추가
     init() {
         FirebaseApp.configure() // <-- 여기에 Firebase 초기화 코드를 추가
-        print("FirebaseApp configured.") //ㅇㄴㅁㅇㄴㅁ
+        print("FirebaseApp configured.")
     }
     
     var body: some Scene {

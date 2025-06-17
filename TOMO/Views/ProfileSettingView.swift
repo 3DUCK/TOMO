@@ -60,7 +60,7 @@ struct ProfileSettingsView: View {
                             Image(uiImage: image)
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: 250, height: 250)
+                                .frame(width: 300, height: 230)
                                 .cornerRadius(20)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 20)
@@ -70,7 +70,7 @@ struct ProfileSettingsView: View {
                         } else {
                             Image(systemName: "photo.artframe")
                                 .resizable()
-                                .frame(width: 250, height: 250)
+                                .frame(width: 300, height: 230)
                                 .foregroundColor(.gray)
                                 .background(Color.white.opacity(0.8))
                                 .cornerRadius(20)

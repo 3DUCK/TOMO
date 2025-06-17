@@ -119,34 +119,17 @@ struct FSCalendarRepresentable: UIViewRepresentable {
         }
 
         // MARK: - FSCalendarDelegateAppearance for Highlighting
+        // 선택된 날짜의 배경색만 회색으로
         func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
-            let currentCalendar = Calendar.current
-            let targetDay = currentCalendar.startOfDay(for: date)
-
-            if let start = parent.selectedStartDate, let end = parent.selectedEndDate {
-                let startOfRange = currentCalendar.startOfDay(for: start)
-                let endOfRange = currentCalendar.startOfDay(for: end)
-
-                if targetDay == startOfRange || targetDay == endOfRange {
-                    // 시작일과 종료일은 악센트 색상 (진하게)
-                    return UIColor(resolvedAccentColor.opacity(0.8))
-                } else if targetDay >= startOfRange && targetDay <= endOfRange {
-                    return UIColor(resolvedAccentColor.opacity(0.4))
-                    // 범위 내 날짜는 회색 (다크 모드 고려)
-                    // return isDarkMode ? UIColor.systemGray4.withAlphaComponent(0.6) : UIColor.lightGray.withAlphaComponent(0.6)
-                }
-            } else if let start = parent.selectedStartDate {
-                let startOfRange = currentCalendar.startOfDay(for: start)
-                if targetDay == startOfRange {
-                    // 시작일만 선택된 경우, 약간 연한 악센트 색상
-                    return UIColor(resolvedAccentColor.opacity(0.5))
-                }
-            }
-            return UIColor(resolvedAccentColor) // 기본 선택 색상
+            return UIColor.systemGray
         }
-
+        // 오늘 날짜의 배경색만 회색으로
         func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
-            return nil // 선택되지 않은 날짜는 기본 색상 사용
+            let currentCalendar = Calendar.current
+            if currentCalendar.isDateInToday(date) {
+                return UIColor.lightGray
+            }
+            return nil
         }
 
         // 날짜 텍스트 색상을 설정합니다.

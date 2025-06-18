@@ -7,7 +7,7 @@
 
 ---
 
-## 시연 영상
+## 시연 영상 (아래 이미지를 클릭하세요)
 [![TOMO 시연 영상](https://github.com/user-attachments/assets/d3b7b6c8-7211-472a-a1bb-c138fb6b55e5)](https://youtu.be/NZ7QS8mZqpo)
 
 

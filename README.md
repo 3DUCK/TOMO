@@ -12,7 +12,8 @@
 ---
 
 ## 시연 영상
-https://youtu.be/NZ7QS8mZqpo
+[![TOMO 시연 영상](https://youtu.be/NZ7QS8mZqpo)
+
 
 ---
 

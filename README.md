@@ -8,8 +8,7 @@
 ---
 
 ## 시연 영상
-[![TOMO 시연<img width="784" alt="스크린샷 2025-06-18 22 20 34" src="https://github.com/user-attachments/assets/fb35e0a4-afb9-448e-a229-c4911f5e887c" />
- 영상](https://youtu.be/NZ7QS8mZqpo)
+[![TOMO 시연영상](https://youtu.be/NZ7QS8mZqpo)
 
 
 ---

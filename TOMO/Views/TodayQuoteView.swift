@@ -74,8 +74,11 @@ struct TodayQuoteView: View {
             withAnimation(.easeIn(duration: 2.0)) {
                 backgroundImageOpacity = 1.0
             }
-            viewModel.fetchAndSaveTodayQuote()
+            viewModel.fetchAndSaveTodayQuote(goal: settings.goal)
             startTypingAnimation(for: viewModel.todayQuote)
+        }
+        .onChange(of: settings.goal) { newGoal in
+            viewModel.fetchAndSaveTodayQuote(goal: newGoal)
         }
         .onChange(of: viewModel.todayQuote) { newQuote in
             startTypingAnimation(for: newQuote)

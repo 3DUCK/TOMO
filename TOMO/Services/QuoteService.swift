@@ -7,24 +7,31 @@ class QuoteService {
 
     private let db = Firestore.firestore() // Firestore 인스턴스
 
-    // 오늘의 문구를 Firestore에서 가져오는 함수
-    func fetchTodayQuote(completion: @escaping (String) -> Void) {
+    // 오늘의 문구를 Firestore에서 가져오는 함수 (goal별)
+    func fetchTodayQuote(forGoal goal: String, completion: @escaping (String) -> Void) {
         let today = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let docId = dateFormatter.string(from: today) // 오늘 날짜를 문서 ID로 사용 (예: "2025-06-12")
 
         let docRef = db.collection("dailyQuotes").document(docId)
+        let fieldMap: [String: String] = [
+            "취업": "employment",
+            "다이어트": "diet",
+            "자기계발": "selfdev",
+            "학업": "study"
+        ]
+        let field = fieldMap[goal] ?? "employment"
 
         docRef.getDocument { (document, error) in
             if let document = document, document.exists {
-                // 문서가 존재하면 'text' 필드를 가져옴
-                if let text = document.data()?["text"] as? String {
+                // 문서가 존재하면 goal에 해당하는 필드를 가져옴
+                if let text = document.data()?[field] as? String {
                     print("QuoteService 🌐 fetchTodayQuote: Successfully fetched quote from Firestore for \(docId): \"\(text)\"")
                     completion(text)
                 } else {
-                    // 'text' 필드가 없는 경우
-                    let errorMessage = "Firestore 문서에 'text' 필드가 없습니다: \(docId)"
+                    // 해당 필드가 없는 경우
+                    let errorMessage = "Firestore 문서에 '\(field)' 필드가 없습니다: \(docId)"
                     print("QuoteService ⚠️ fetchTodayQuote: \(errorMessage)")
                     completion("문구를 불러올 수 없습니다.") // 사용자에게 표시할 기본 문구
                 }
@@ -49,7 +56,13 @@ class QuoteService {
             } else {
                 var quotes: [Quote] = []
                 for document in querySnapshot!.documents {
-                    if let quote = Quote(document: document) {
+                    if var quote = Quote(document: document) {
+                        // date를 KST 기준의 0시로 변환
+                        if let kst = TimeZone(identifier: "Asia/Seoul") {
+                            var calendar = Calendar(identifier: .gregorian)
+                            calendar.timeZone = kst
+                            quote.date = calendar.startOfDay(for: quote.date)
+                        }
                         quotes.append(quote)
                     }
                 }

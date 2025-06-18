@@ -134,7 +134,7 @@ struct HistoryCalendarView: View {
                     List(filteredQuotes()) { quote in
                         VStack(alignment: .leading, spacing: 4) {
                             HStack {
-                                Text("\"" + quote.text + "\"")
+                                Text("\"" + getQuoteText(for: quote) + "\"")
                                     .font(settings.getCustomFont(size: 20))
                                     .lineSpacing(5)
                                     .foregroundColor(.primary)
@@ -202,10 +202,9 @@ struct HistoryCalendarView: View {
 
         var rangedQuotes = viewModel.allQuotes.filter { quote in
             let quoteDay = calendar.startOfDay(for: quote.date)
-
             if let start = selectedStartDate, let end = selectedEndDate {
                 return quoteDay >= calendar.startOfDay(for: start) &&
-                            quoteDay <= calendar.startOfDay(for: end)
+                       quoteDay <= calendar.startOfDay(for: end)
             } else if let start = selectedStartDate {
                 return quoteDay == calendar.startOfDay(for: start)
             } else {
@@ -213,17 +212,33 @@ struct HistoryCalendarView: View {
             }
         }
 
+        // goal, 검색어, 감정 태그 모두 반영
         rangedQuotes = rangedQuotes.filter { quote in
+            let goalMatches = (quote.goal == nil) || (quote.goal == settings.goal)
             let textMatches = searchText.isEmpty ||
-                              quote.text.localizedCaseInsensitiveContains(searchText) ||
-                              (quote.memo?.localizedCaseInsensitiveContains(searchText) ?? false)
-
+                getQuoteText(for: quote).localizedCaseInsensitiveContains(searchText) ||
+                (quote.memo?.localizedCaseInsensitiveContains(searchText) ?? false)
             let tagMatches = selectedTag == nil || (quote.emotion == selectedTag)
-
-            return textMatches && tagMatches
+            return goalMatches && textMatches && tagMatches
         }
 
         return rangedQuotes.sorted(by: { $0.date > $1.date })
+    }
+
+    // 날짜별로 goal별 필드에서만 문구를 반환 (text 필드는 무시)
+    private func getQuoteText(for quote: Quote) -> String {
+        switch settings.goal {
+        case "취업":
+            return quote.employment ?? ""
+        case "다이어트":
+            return quote.diet ?? ""
+        case "자기계발":
+            return quote.selfdev ?? ""
+        case "학업":
+            return quote.study ?? ""
+        default:
+            return ""
+        }
     }
 
     private var dateFormatter: DateFormatter {

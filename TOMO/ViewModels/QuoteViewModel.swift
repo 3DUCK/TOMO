@@ -33,12 +33,14 @@ class QuoteViewModel: ObservableObject {
             } else {
                 // 저장된 문구가 오늘 날짜가 아니면 새로 불러오도록 초기화
                 self.todayQuote = "새 문구 불러오는 중..."
-                fetchAndSaveTodayQuote() // Firebase에서 새 문구 로드 시도
+                let savedGoal = userDefaults.string(forKey: "goal") ?? "취업"
+                fetchAndSaveTodayQuote(goal: savedGoal) // Firebase에서 새 문구 로드 시도
             }
         } else {
             // 저장된 문구가 전혀 없으면 새로 불러오도록 초기화
             self.todayQuote = "첫 문구 로드 중..."
-            fetchAndSaveTodayQuote() // Firebase에서 첫 문구 로드 시도
+            let savedGoal = userDefaults.string(forKey: "goal") ?? "취업"
+            fetchAndSaveTodayQuote(goal: savedGoal) // Firebase에서 첫 문구 로드 시도
         }
         print("QuoteViewModel 🚀 init: Initializing ViewModel. Final todayQuote: \"\(todayQuote)\"")
     }
@@ -84,28 +86,27 @@ class QuoteViewModel: ObservableObject {
     }
 
     // 새로운 문구를 기록에 추가하거나 기존 문구를 업데이트 (UserDefaults 및 Firestore 연동)
-    // 이 함수는 이제 Firestore에서 가져온 문구를 기준으로 동작해야 합니다.
-    func addOrUpdateQuoteRecord(text: String, date: Date, generatedBy: String?, style: String?) {
+    // goal 파라미터 추가
+    func addOrUpdateQuoteRecord(text: String, date: Date, generatedBy: String?, style: String?, goal: String?) {
         let calendar = Calendar.current
         let todayDocId = DateFormatter.localizedString(from: date, dateStyle: .short, timeStyle: .none) // 날짜만 비교
 
         // allQuotes에서 오늘 날짜의 문구가 있는지 확인
         if let index = allQuotes.firstIndex(where: { calendar.isDate($0.date, inSameDayAs: date) }) {
-            // 이미 오늘 날짜의 문구가 있다면 텍스트, generatedBy, style만 업데이트
-            // 메모와 감정은 그대로 유지 (사용자가 입력한 값)
+            // 이미 오늘 날짜의 문구가 있다면 텍스트, generatedBy, style, goal만 업데이트
             allQuotes[index].text = text
             allQuotes[index].generatedBy = generatedBy
             allQuotes[index].style = style
+            allQuotes[index].goal = goal
             saveAllQuotes() // 변경사항 저장 (UserDefaults)
             print("QuoteViewModel 📝 addOrUpdateQuoteRecord: Updated quote for date \(todayDocId). New text: \"\(text)\"")
         } else {
             // 없다면 새로운 문구 추가
-            // Firebase의 문서 ID (YYYY-MM-DD)를 Quote의 id로 사용
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             let firebaseDocId = dateFormatter.string(from: date)
 
-            let newQuote = Quote(id: firebaseDocId, text: text, date: date, memo: nil, emotion: nil, generatedBy: generatedBy, style: style)
+            let newQuote = Quote(id: firebaseDocId, text: text, date: date, memo: nil, emotion: nil, generatedBy: generatedBy, style: style, goal: goal)
             allQuotes.append(newQuote)
             allQuotes.sort(by: { $0.date > $1.date }) // 추가 후 최신 날짜순 정렬
             saveAllQuotes() // 변경사항 저장 (UserDefaults)
@@ -135,33 +136,17 @@ class QuoteViewModel: ObservableObject {
         }
     }
 
-    // 오늘의 문구를 Firestore에서 가져와 UserDefaults에 저장하고 allQuotes에 반영
-    func fetchAndSaveTodayQuote() {
-        QuoteService.shared.fetchTodayQuote { [weak self] fetchedQuoteText in
+    // 오늘의 문구를 Firestore에서 goal별로 가져와 UserDefaults에 저장하고 allQuotes에 반영
+    func fetchAndSaveTodayQuote(goal: String) {
+        QuoteService.shared.fetchTodayQuote(forGoal: goal) { [weak self] fetchedQuoteText in
             guard let self = self else { return }
-            print("QuoteViewModel 🌐 fetchAndSaveTodayQuote: Fetched new quote from service: \"\(fetchedQuoteText)\"")
-            
             DispatchQueue.main.async {
-                self.todayQuote = fetchedQuoteText // 오늘의 문구 UI 업데이트
-
-                // UserDefaults에 오늘의 문구 저장 (캐싱)
+                self.todayQuote = fetchedQuoteText
                 self.userDefaults.set(fetchedQuoteText, forKey: self.todayQuoteTextKey)
-                self.userDefaults.set(Date(), forKey: self.todayQuoteDateKey) // 가져온 날짜로 저장
-
-                // fetchedQuoteText는 Firestore의 text 필드만 포함하므로,
-                // generateBy, style은 QuoteService.fetchTodayQuote가 Quote 객체를 반환하도록 수정하거나
-                // 별도로 가져와야 합니다.
-                // 현재는 text만 가져오므로, generatedBy와 style은 nil로 처리합니다.
-                // 이 부분을 개선하려면 QuoteService.fetchTodayQuote 함수가 Text 외에 전체 Quote 객체를 반환하도록 수정해야 합니다.
-                // 일단은 text만 업데이트하고, generatedBy와 style은 nil로 둡니다.
-
-                self.addOrUpdateQuoteRecord(text: fetchedQuoteText, date: Date(), generatedBy: nil, style: nil)
-                
-                // Firestore에서 모든 문구를 다시 가져와 allQuotes를 업데이트 (히스토리 화면 동기화)
-                // 앱 시작 시 (init) 또는 주기적으로 호출하여 히스토리 데이터의 최신성을 보장할 수 있습니다.
+                self.userDefaults.set(Date(), forKey: self.todayQuoteDateKey)
+                self.addOrUpdateQuoteRecord(text: fetchedQuoteText, date: Date(), generatedBy: nil, style: nil, goal: goal)
                 self.fetchAndLoadAllQuotesFromFirestore()
-                
-                WidgetCenter.shared.reloadAllTimelines() // 위젯 업데이트
+                WidgetCenter.shared.reloadAllTimelines()
             }
         }
     }

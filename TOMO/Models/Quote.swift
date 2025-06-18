@@ -10,6 +10,12 @@ struct Quote: Identifiable, Codable, Equatable {
     var emotion: String? // 감정 이모티콘 (선택 사항)
     var generatedBy: String? // 생성 주체 (OpenAI, Gemini 등) - Firestore 필드 추가
     var style: String? // 문구 스타일 (감성적, 실행적 등) - Firestore 필드 추가
+    var goal: String? // 명언의 목표(취업, 다이어트, 자기계발, 학업 등) - Firestore 필드 추가
+    // 4가지 주제별 문구 필드 (Firestore 신규 구조 대응)
+    var employment: String?
+    var diet: String?
+    var selfdev: String?
+    var study: String?
 
     // Equatable 프로토콜 구현: 두 Quote 객체가 동일한지 비교 (날짜는 같은 날인지, 다른 필드는 값 동일한지)
     static func == (lhs: Quote, rhs: Quote) -> Bool {
@@ -46,11 +52,17 @@ struct Quote: Identifiable, Codable, Equatable {
         self.emotion = data["emotion"] as? String
         self.generatedBy = data["generatedBy"] as? String
         self.style = data["style"] as? String
+        self.goal = data["goal"] as? String // Firestore에 goal 필드가 있으면 파싱
+        // 4가지 주제별 문구 필드 파싱
+        self.employment = data["employment"] as? String
+        self.diet = data["diet"] as? String
+        self.selfdev = data["selfdev"] as? String
+        self.study = data["study"] as? String
     }
     
     // Codable을 위한 init (UserDefaults 저장/로드를 위해 필요)
     // Firestore에서 가져온 Quote 객체는 이 init을 통해 다시 인코딩될 수 있습니다.
-    init(id: String = UUID().uuidString, text: String, date: Date, memo: String?, emotion: String?, generatedBy: String?, style: String?) {
+    init(id: String = UUID().uuidString, text: String, date: Date, memo: String?, emotion: String?, generatedBy: String?, style: String?, goal: String?, employment: String? = nil, diet: String? = nil, selfdev: String? = nil, study: String? = nil) {
         self.id = id
         self.text = text
         self.date = date
@@ -58,5 +70,10 @@ struct Quote: Identifiable, Codable, Equatable {
         self.emotion = emotion
         self.generatedBy = generatedBy
         self.style = style
+        self.goal = goal
+        self.employment = employment
+        self.diet = diet
+        self.selfdev = selfdev
+        self.study = study
     }
 }

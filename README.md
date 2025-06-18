@@ -1,4 +1,7 @@
-# TOMO: 동기부여 명언 & 기록 iOS 앱
+# TOMO: 동기부여 명언 & 기록 iOS 위젯 앱
+
+## 시연 영상
+https://youtu.be/NZ7QS8mZqpo
 
 ## 소개
 TOMO는 사용자의 목표(취업, 다이어트, 자기계발, 학업)에 맞는 맞춤형 동기부여 문구를 매일 제공하고, 자신의 감정과 메모를 기록할 수 있는 iOS 앱입니다. Firebase Cloud Functions와 Firestore를 백엔드로 사용하며, SwiftUI 기반의 현대적인 UI/UX, 위젯, 다크/라이트 테마, 커스텀 폰트, 배경 이미지 등 다양한 개인화 기능을 지원합니다.

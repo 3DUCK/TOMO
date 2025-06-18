@@ -67,11 +67,33 @@
 			membershipExceptions = (
 				Models/Quote.swift,
 				Models/User.swift,
+				"Resources/고양일산 L.TTF",
+				"Resources/고양일산 R.TTF",
+				"Resources/조선일보명조.ttf",
+				Services/QuoteService.swift,
 				ViewModels/QuoteViewModel.swift,
 				Views/HistoryCalendarView.swift,
+				Views/ImagePicker.swift,
+				Views/MainTabView.swift,
+				Views/MemoEditView.swift,
+				Views/ProfileSettingView.swift,
 				Views/TodayQuoteView.swift,
 			);
 			target = 046F51FA2DF72A0F00AC661D /* TOMOWidgetExtension */;
+		};
+		04AAAD672E02B2EB006CE6AB /* Exceptions for "TOMOWidget" folder in "TOMOWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 046F51FA2DF72A0F00AC661D /* TOMOWidgetExtension */;
+		};
+		04AAAD682E02B2EF006CE6AB /* Exceptions for "TOMO" folder in "TOMO" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 046F51D02DF6BA2D00AC661D /* TOMO */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -79,6 +101,7 @@
 		046F51D32DF6BA2D00AC661D /* TOMO */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				04AAAD682E02B2EF006CE6AB /* Exceptions for "TOMO" folder in "TOMO" target */,
 				046F52212DF84FAA00AC661D /* Exceptions for "TOMO" folder in "TOMOWidgetExtension" target */,
 			);
 			path = TOMO;
@@ -86,6 +109,9 @@
 		};
 		046F52012DF72A1000AC661D /* TOMOWidget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				04AAAD672E02B2EB006CE6AB /* Exceptions for "TOMOWidget" folder in "TOMOWidgetExtension" target */,
+			);
 			path = TOMOWidget;
 			sourceTree = "<group>";
 		};

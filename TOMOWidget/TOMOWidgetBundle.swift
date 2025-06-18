@@ -19,7 +19,7 @@ import SwiftUI
 struct TOMOWidgetBundle: WidgetBundle {
     /// 이 번들에 포함될 위젯들을 정의합니다.
     var body: some Widget {
-        TOMOWidget()          // 오늘의 문구를 표시하는 일반 위젯
+        TOMOWidget()         // 오늘의 문구를 표시하는 일반 위젯
         TOMOWidgetControl()   // 제어 기능을 제공하는 위젯
         TOMOWidgetLiveActivity() // 실시간 정보를 표시하는 라이브 액티비티 위젯
     }

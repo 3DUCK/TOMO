@@ -53,7 +53,11 @@ struct MemoEditView: View {
         NavigationView {
             VStack(alignment: .leading, spacing: 20) {
                 // 편집 중인 문구의 텍스트 표시
-                Text(" \(selectedQuote?.text ?? "")")
+//                Text(" \(selectedQuote?.text ?? "")")
+//                    .font(settings.getCustomFont(size: 20))
+//                    .padding(.horizontal)
+                
+                Text("메모를 입력하세요.")
                     .font(settings.getCustomFont(size: 20))
                     .padding(.horizontal)
                 
